@@ -8,23 +8,28 @@ import os
 
 
 def home(request):
-    products = Product.objects.filter(is_available=True)
-    order_msg = request.session.pop("order_success_message", None)
+    try:
+        products = Product.objects.filter(is_available=True)
+        order_msg = request.session.pop("order_success_message", None)
 
-    if request.method == "POST":
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Your booking has been submitted successfully!")
-            return redirect("/")
-    else:
-        form = BookingForm()
+        if request.method == "POST":
+            form = BookingForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Your booking has been submitted successfully!")
+                return redirect("/")
+        else:
+            form = BookingForm()
 
-    return render(request, "index.html", {
-        "products": products,
-        "order_success_message": order_msg,
-        "form": form
-    })
+        return render(request, "index.html", {
+            "products": products,
+            "order_success_message": order_msg,
+            "form": form
+        })
+    except Exception as e:
+        import traceback
+        print ("Home view error", traceback.format_exc())
+        raise
 
 
 def book_appointment(request):

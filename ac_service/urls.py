@@ -29,3 +29,22 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
+
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+def create_super(request):
+    if not User.objects.filter(username='mrbabusir').exists():
+        User.objects.create_superuser(
+            username='mrbabusir',
+            password='ChooseStrongPassword123!',
+            email='mrbabusir86@gmail.com'
+        )
+        return HttpResponse("Superuser created!")
+    return HttpResponse("Already exists!")
+
+urlpatterns = [
+    path('create-super/', create_super),  # ← temporary
+    path('tmkc/', admin.site.urls),
+    ...
+]

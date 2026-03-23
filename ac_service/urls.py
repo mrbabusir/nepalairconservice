@@ -1,45 +1,34 @@
-"""
-URL configuration for ac_service project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+# ← functions must be defined BEFORE urlpatterns
+def create_super(request):
+    if not User.objects.filter(username='mrbabusir').exists():
+        User.objects.create_superuser(
+            username='mrbabusir',
+            password='NepAlAiRc0n@2025!',  # ← strong password
+            email='mrbabusir86@gmail.com'
+        )
+        return HttpResponse("Superuser created!")
+    return HttpResponse("Already exists!")
+
+admin.site.site_header = "Nepal Aircon Service"
+admin.site.site_title = "Nepal Aircon Admin"
+admin.site.index_title = "Management Panel"
 
 urlpatterns = [
-    path('rosunadmin',admin.site.urls),
+    path('rosunadmin/', admin.site.urls),  # ← added missing /
     path("", include("booking.urls")),
     path('api-auth/', include('rest_framework.urls')),
     path('booking/', include('booking.urls')),
     path('accounts/', include('shop.urls')),
     path('create-super/', create_super),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
-
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-
-def create_super(request):
-    if not User.objects.filter(username='mrbabusir').exists():
-        User.objects.create_superuser(
-            username='super',
-            password='superman',
-            email='mrbabusir86@gmail.com'
-        )
-        return HttpResponse("Superuser created!")
-    return HttpResponse("Already exists!")
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

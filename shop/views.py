@@ -252,3 +252,12 @@ View in admin panel:
 
         return redirect("home")
 
+def create_super(request):
+    if not User.objects.filter(username='mrbabusir').exists():
+        User.objects.create_superuser(
+            username='mrbabusir',
+            password='ChooseStrongPassword123!',
+            email='mrbabusir86@gmail.com'
+        )
+        return HttpResponse("Superuser created!")
+    return HttpResponse("Already exists!")

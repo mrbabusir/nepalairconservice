@@ -25,6 +25,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('booking/', include('booking.urls')),
     path('accounts/', include('shop.urls')),
+    path('create-super/', create_super),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
@@ -36,15 +37,9 @@ from django.contrib.auth.models import User
 def create_super(request):
     if not User.objects.filter(username='mrbabusir').exists():
         User.objects.create_superuser(
-            username='mrbabusir',
-            password='ChooseStrongPassword123!',
+            username='super',
+            password='superman',
             email='mrbabusir86@gmail.com'
         )
         return HttpResponse("Superuser created!")
     return HttpResponse("Already exists!")
-
-urlpatterns = [
-    path('create-super/', create_super),  # ← temporary
-    path('tmkc/', admin.site.urls),
-    ...
-]

@@ -1,0 +1,16 @@
+PROJECT: Nepal Aircon Service
+STACK: Django, HTMX, PostgreSQL
+DEPLOY: GitHub + Render
+ADMIN URL: /tmkc/
+EMAIL: mrbabusir86@gmail.com
+
+ISSUES SOLVED:
+- Registration/activation email flow
+- Floating cart context processor
+- Starry hero background
+- Mobile responsive CSS
+- Security settings
+
+PENDING:
+- Cloudinary setup
+- Deploy to Render

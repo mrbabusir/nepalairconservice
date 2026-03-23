@@ -1,0 +1,45 @@
+/* GLOBAL STYLES */
+html {
+    scroll-behavior: smooth;
+}
+section {
+  scroll-margin-top: 80px; /* height of your navbar */
+}
+
+
+body {
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #F7F1DE;
+    background-color: #4973ff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+
+[data-lang].hidden {
+    opacity: 0;
+    pointer-events: none; /* prevent clicks when hidden */
+    position: absolute;   /* optional, keeps layout clean */
+}
+
+
+:root {
+  --color: #4973ff;
+}
+
+body {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+
+

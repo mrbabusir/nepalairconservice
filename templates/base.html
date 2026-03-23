@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}AC Service{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    {% include 'partials/navbar.html' %}
+
+    <!-- HERO SECTION -->
+    {% block hero %}
+    <section class="hero">
+        <h1>Welcome to Nepal Aircon Service</h1>
+    </section>
+    {% endblock %}
+
+    <!-- MAIN CONTENT -->
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

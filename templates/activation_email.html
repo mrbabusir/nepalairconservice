@@ -1,0 +1,12 @@
+Hi {{ user.username }},
+
+Thank you for registering at Nepal Aircon Service.
+
+Please click the link below to activate your account:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+If you did not register, please ignore this email.
+
+Thanks,
+Nepal Aircon Service Team

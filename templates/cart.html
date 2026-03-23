@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <style>
+        body {
+            background:#1a1a1a;
+            color:white;
+            font-family:Arial;
+            padding:40px;
+        }
+        .cart-item {
+            background:#2a364e;
+            padding:15px;
+            border-radius:10px;
+            margin-bottom:15px;
+            display:flex;
+            gap:15px;
+            align-items:center;
+        }
+        img {
+            width:80px;
+            border-radius:8px;
+        }
+        .btn {
+            padding:8px 15px;
+            background:#4973ff;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+        }
+        .remove {
+            background:red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🛒 Your Cart</h1>
+
+{% if cart %}
+    {% for pid, item in cart.items %}
+        <div class="cart-item">
+            {% if item.image %}
+                <img src="{{ item.image }}">
+            {% endif %}
+            <div>
+                <h3>{{ item.name }}</h3>
+                <p>Price: Rs {{ item.price }}</p>
+                <p>Qty: {{ item.qty }}</p>
+                <p>Total: Rs {{ item.price|floatformat:0|add:item.qty }}</p>
+                <a href="{% url 'remove_cart' pid %}" class="btn remove">Remove</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    <hr>
+    <h2>Total Amount: Rs {{ total }}</h2>
+
+    <form action="{% url 'place_order' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="checkout-btn">Place Order</button>
+    </form>
+
+
+
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+</body>
+</html>

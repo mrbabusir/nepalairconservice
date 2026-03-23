@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Pending</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .message-box {
+            background-color: #2a364e;
+            padding: 40px;
+            border-radius: 15px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #4973ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h1>Registration Successful!</h1>
+        <p>We have sent a confirmation link to your email.</p>
+        <p>Please click the link in your email to activate your account.</p>
+        <a href="{% url 'home' %}">Go to Home</a>
+    </div>
+</body>
+</html>

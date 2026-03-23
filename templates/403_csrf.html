@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oops! Something went wrong</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        h1 {
+            font-size: 60px;
+            color: #ff4d4d;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #4973ff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops!</h1>
+        <p>Something went wrong. Your session may have expired or the form was submitted incorrectly.</p>
+        <p>Please go back and try again or <a href="{% url 'login' %}">return to login</a>.</p>
+    </div>
+</body>
+</html>

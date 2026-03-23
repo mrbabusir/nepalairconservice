@@ -1,0 +1,12 @@
+<div class="cartbox">
+    <a href="{% url 'cart' %}" class="cart-link">🛒 Cart</a>
+
+    <span id="cart-summary">
+        {% if cart_total_items %}
+            🛒 <strong>{{ cart_total_items }}</strong> items | Rs <strong>{{ cart_total_price }}</strong>
+        {% else %}
+            Cart is Empty
+        {% endif %}
+    </span>
+</div>
+

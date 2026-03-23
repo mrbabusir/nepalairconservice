@@ -1,0 +1,16 @@
+{
+    "files.autoSave": "afterDelay",
+    "cSpell.words": [
+        "acbanner",
+        "bodybg",
+        "अहिले"
+    ],
+    "cSpell.customDictionaries": {
+        "custom-dictionary-workspace": {
+            "name": "custom-dictionary-workspace",
+            "path": "${workspaceFolder:AC service}/.cspell/custom-dictionary-workspace.txt",
+            "addWords": true,
+            "scope": "workspace"
+        }
+    }
+}

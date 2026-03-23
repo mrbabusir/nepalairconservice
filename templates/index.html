@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>AC Repair Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hero.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sernbook.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+</head>
+
+<body>
+{% if order_success_message %}
+<div id="order-notification" style="
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+">
+    {{ order_success_message }}
+</div>
+
+<script>
+    setTimeout(function(){
+        const notif = document.getElementById("order-notification");
+        if(notif) notif.remove();
+    }, 5000); // disappear after 5 seconds
+</script>
+{% endif %}
+
+<nav class="navbar">
+    <div class="logo">
+        <a href="#home">
+            <img src="{% static 'images/logo.png' %}" >
+            <span data-lang="en">Nepal Aircon Service</span>
+            <span data-lang="np">नेपाल एयरकन सर्भिस</span>
+        </a>
+    </div>
+    <div class="nav-right">
+        <a href="#contact" data-lang="en">Contact</a><a href="#contact" data-lang="np">सम्पर्क</a></li>
+        <a href="#shop" data-lang="en">Shop</a><a href="#shop" data-lang="np">किनमेल</a></li>
+        <a href="#services" data-lang="en">Services</a><a href="#services" data-lang="np">सेवाहरू</a></li>
+        {% if user.is_authenticated %}
+            <span data-lang="en">Hello, {{ user.username }}</span>
+            <span data-lang="np">नमस्ते, {{ user.username }}</span>
+            <a href="{% url 'logout' %}" data-lang="en">Logout</a><a href="{% url 'logout' %}" data-lang="np">लगआउट</a>
+        {% else %}
+            <a href="{% url 'login' %}"data-lang="en" class="nav-btn">Login/Register</a>
+            <a href="{% url 'login' %}" data-lang="np" class="nav-btn">लगइन गर्नु/दर्ता गर्नु</a>
+        {% endif %}
+        <div class="lang-dropdown">
+        <button class="lang-btn" onclick="toggleLangMenu(event)">
+            <img id="currentFlag" src="https://flagcdn.com/w20/gb.png">
+            <span id="currentLang">EN</span>
+        </button>
+
+        <div class="lang-menu" id="langMenu">
+            <button onclick="setLang('en')"><img src="https://flagcdn.com/w20/gb.png"> English</button>
+            <button onclick="setLang('np')"><img src="https://flagcdn.com/w20/np.png"> नेपाली</button>
+        </div>
+    </div>
+
+    <!-- Language Dropdown -->
+    
+    </div>
+</nav>
+
+<header class="hero" id="home">
+    <canvas id="star-canvas"></canvas>
+    <div class="hero-inner">
+
+        <div class="hero-text">
+        <h1 data-lang="en">NEPAL AIRCON SERVICE PVT LTD</h1>
+        <h1 data-lang="np">नेपाल एयरकन सर्भिस प्राइभेट लिमिटेड</h1>
+
+        <p data-lang="en">Fast, Reliable & Affordable AC Solutions</p>
+        <p data-lang="np">छिटो, भरपर्दो र किफायती AC समाधान</p>
+        </div>
+
+        <div class="hero-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Nepal Aircon Service Logo">
+        </div>
+
+    </div>
+
+  <div class="waves"></div>
+</header>
+<section class="shop-container">
+    <div class = "shop-header" id="shop" >
+        <h1 data-lang="en">Our Products</h1>
+        <h1 data-lang="np">हाम्रो उत्पादनहरू</h1>
+        <div id="cart-box">
+            {% include "partials/cart_box.html" %}
+        </div>
+        <div class="products">
+            {% if products %}   
+                {% for product in products %}      
+                    <div class="product">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{% static 'images/no-image.png' %}" alt="No image">
+                        {% endif %}
+
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p>Price: {{ product.price }}</p>
+                        {% if user.is_authenticated %}
+                            <button
+                                class="buy-btn"
+                                onclick="addToCart({{ product.id }})"
+                            >
+                                Add to Cart
+                            </button>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="buy-btn">Login to Buy</a>
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p data-lang="en">No products available at the moment. Please check back later.</p>
+                <p data-lang="np">"हाल उत्पादन उपलब्ध छैन। कृपया पछि फेरि जाँच गर्नुहोस्।"</p>
+            {% endif %}
+        </div>
+    </div>               
+</section>
+
+<section class="services-booking">
+    <div class = "services" id="services">
+        <h1 data-lang="en">Our Services</h1>
+        <h1 data-lang="np">हाम्रा सेवाहरू</h1>    
+            <div class="service-item repair">
+                <h2 class= "acrepair" data-lang="en">AC Repair</h2>
+                <h2 class= "acrepair" data-lang="np">AC मर्मत</h2>
+                    <div class = "service-box" data-lang="en">“We provide fast and reliable AC repair for all brands. 
+                        Our expert technicians ensure your AC runs like new, giving you complete peace of mind.”
+                    </div>
+                    <div class = "service-box" data-lang="np">“हामी सबै ब्रान्डको AC छिटो र भरपर्दो मर्मत गर्छौं। 
+                        हाम्रा विशेषज्ञ प्राविधिकहरूले तपाईंको AC नयाँ जस्तै काम गर्ने सुनिश्चित गर्छन्, जसले तपाईंलाई पूर्ण मनको शान्ति दिन्छ।”
+                    </div>
+            </div>
+
+            <div class="service-item installation">
+                <h2 class = "acinstall" data-lang="en">AC Installation</h2>
+                <h2 class= "acinstall" data-lang="np">AC स्थापना</h2>
+                    <div class = "service-box" data-lang="en">“Professional AC installation done right the first time. 
+                        We ensure proper setup for maximum efficiency and long-lasting performance.”
+                    </div>
+                    <div class = "service-box" data-lang="np">“व्यावसायिक AC स्थापना पहिलो पटक नै सही तरिकाले गरिन्छ। 
+                        हामी अधिकतम क्षमता र लामो समयसम्म उत्कृष्ट काम गर्ने सुनिश्चित गर्दै सही सेटअप गर्छौं।”
+                    </div>
+            </div>
+
+            <div class="service-item gasrefill">
+                <h2 class = "gasrefill" data-lang="en">Gas Refill</h2>
+                <h2 class = "gasrefill" data-lang="np">ग्यास भर्ने</h2>
+                    <div class = "service-box" data-lang="en">“We refill your AC gas quickly and safely, restoring optimal cooling. 
+                        Keep your AC running efficiently without any hassle.”
+                    </div>
+                    <div class = "service-box" data-lang="np">“हामी तपाईंको AC को ग्यास छिटो र सुरक्षित रूपमा भर्छौं, जसले उत्तम कूलिङ पुन:स्थापित गर्छ।
+                        तपाईंको AC सहज र प्रभावकारी रूपमा चलिरहोस्।”
+                    </div>
+            </div>
+            <div class="service-item accleaning">
+                <h2 class = "accleaning" data-lang="en">AC Cleaning</h2>
+                <h2 class = "accleaning" data-lang="np">AC सफा गर्ने</h2>
+                    <div class = "service-box" data-lang="en">“Comprehensive AC cleaning to improve air quality and performance. 
+                        Regular cleaning helps prevent breakdowns and extends your AC’s life.”
+                    </div>
+                    <div class = "service-box" data-lang="np">“हावा गुणस्तर र प्रदर्शन सुधार्नको लागि सम्पूर्ण AC सफाइ। 
+                     नियमित सफाइले बिग्रिनबाट जोगाउँछ र तपाईंको AC को आयु बढाउँछ।” 
+                    </div>
+            </div>
+        </div> 
+        {% if messages %}
+        <div id="message-container">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}        
+        </div>
+        {% endif %}                   
+        <div class="booking-form">
+            <h1 data-lang="en">Book Your Service</h1>
+            <h1 data-lang="np">सेवा बुक गर्नुहोस्</h1>
+            <div id="booking-message"></div>
+            <div class ="form-container">
+                <form 
+                    hx-post="{% url 'book_appointment' %}"
+                    hx-target="#booking-message"
+                    hx-swap="innerHTML"
+                >
+                    {% csrf_token %}
+                    {{ form.name }}
+                    {{ form.phone }}
+                    {{ form.service }}
+                    {{ form.address }}
+                    {{ form.note }}
+                    <button type="submit" class="bookbtn">Book Now</button>
+                    <div class="or-divider">OR</div>
+
+                    <a 
+                        href="https://wa.me/9779709636654" 
+                        target="_blank" 
+                        class="whatsapp-btn"
+                        >
+                        <img src="{% static 'images/whatsapp.png' %}">
+                        Book via WhatsApp
+                    </a>
+                </form>
+            </div>
+        </div>
+</section>
+
+
+<script>
+document.body.addEventListener('htmx:afterSwap', (event) => {
+    if(event.target.id === 'booking-message'){
+        const alert = event.target.querySelector('.alert');
+        if(alert){
+            setTimeout(() => {
+                alert.style.transition = "opacity 0.5s ease";
+                alert.style.opacity = 0;
+                setTimeout(() => alert.remove(), 500);
+            }, 5000); // 5 seconds
+        }
+    }
+});
+</script>
+<script>
+document.body.addEventListener("bookingSuccess", function () {
+    document.querySelector(".booking-form form").reset();
+});
+</script>
+
+<script>
+setTimeout(function() {
+    const msgContainer = document.getElementById('message-container');
+    if (msgContainer) {
+        msgContainer.classList.add('hidden'); // start fade
+    // Remove from DOM after fade finishes (1s)
+        setTimeout(() => msgContainer.remove(), 1000);
+}
+}, 5000); // wait 5s before starting fade
+</script>
+
+
+
+<section class="contact-about">
+
+  <div class="contact-about-inner">
+
+    <!-- CONTACT -->
+    <div class="contact-box" id="contact">
+      <h2 data-lang="en">Contact Us</h2>
+      <h2 data-lang="np">सम्पर्क गर्नुहोस्</h2>
+
+      <a href="tel:+9779709636654" class="btn" data-lang="en">📞 +9779709636654</a>
+      <a href="tel:+9779709636654" class="btn" data-lang="np">📞 +९७७ ९७०९६३६६५४</a>
+
+      <a href="https://wa.me/9779709636654" class="icon-link" target="_blank">
+        <img src="{% static 'images/whatsapp.png' %}" alt="WhatsApp">
+        WhatsApp
+      </a>
+
+      <a href="https://maps.app.goo.gl/wjFH5jRftPzEGk1M6" class="icon-link" target="_blank">
+        <img src="{% static 'images/pin.png' %}" alt="Location">
+        Our Location
+      </a>
+    </div>
+
+    <!-- LOGO -->
+    <div class="contact-logo">
+      <img src="{% static 'images/logo.png' %}" alt="Nepal Aircon Service Logo">
+    </div>
+    <!-- ABOUT -->  <!-- ABOUT -->
+    <div class="about-box" id="about">
+        <h2 data-lang="en">About Nepal Aircon Service</h2>
+        <h2 data-lang="np">नेपाल एयरकन सेवा बारे</h2>
+
+        <p data-lang="en">At Nepal Aircon Service, we are dedicated to providing top-notch air conditioning solutions across Nepal.
+            With years of experience, our skilled technicians specialize in AC repair, installation, gas refilling, and cleaning services.
+            We take pride in our commitment to customer satisfaction, ensuring every service is performed with precision and care.
+            Whether it’s a residential or commercial AC unit, we guarantee efficient and reliable service at competitive prices.
+            Trust Nepal Aircon Service for all your air conditioning needs and experience the difference of working with true professionals.</p>
+
+        <p data-lang="np">नेपाल एयरकन सर्भिस मा हामी नेपालभरि उत्कृष्ट एयर कन्डिसनिङ सेवा प्रदान गर्न समर्पित छौं।
+            वर्षौंको अनुभवका साथ, हाम्रो दक्ष प्राविधिक टोलीले एसी मर्मत, जडान, ग्यास रिफिलिङ तथा सफाइ सेवामा विशेषज्ञता हासिल गरेको छ।
+            हामी ग्राहक सन्तुष्टिलाई प्राथमिकता दिन्छौं र प्रत्येक सेवा उच्च स्तरको ध्यान र सटीकताका साथ सम्पन्न गर्छौं।
+            घरायसी होस् वा व्यवसायिक एसी युनिट, हामी प्रतिस्पर्धी मूल्यमा छरितो र भरपर्दो सेवा सुनिश्चित गर्छौं।
+            तपाईंका सबै एयर कन्डिसनिङ आवश्यकताका लागि नेपाल एयरकन सर्भिसमा विश्वास गर्नुहोस् र साँचो पेशेवरसँग काम गर्ने फरक अनुभव गर्नुहोस्।</p>
+    </div>
+
+  </div>
+
+
+
+</section>
+
+
+<footer>
+    <p>© 2025 Nepal Aircon Service</p>
+</footer>
+
+<script>
+function toggleLangMenu(event){
+    event.stopPropagation();
+    document.getElementById("langMenu").classList.toggle("show");
+}
+
+function setLang(lang){
+    const flag = document.getElementById("currentFlag");
+    const langText = document.getElementById("currentLang");
+
+    if(lang==="en"){
+        flag.src="https://flagcdn.com/w20/gb.png";
+        langText.textContent="EN";
+    } else {
+        flag.src="https://flagcdn.com/w20/np.png";
+        langText.textContent="ने";
+    }
+
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+        if(el.getAttribute("data-lang") === lang){
+            el.classList.remove("hidden"); // fade in
+        } else {
+            el.classList.add("hidden");    // fade out
+    }
+    });
+
+
+    // Save choice
+    localStorage.setItem("siteLanguage", lang);
+
+    document.getElementById("langMenu").classList.remove("show");
+}
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function () {
+    const menu = document.getElementById("langMenu");
+    if(menu) menu.classList.remove("show");
+});
+
+// Run once when page fully loaded
+document.addEventListener("DOMContentLoaded", function(){
+    const savedLang = localStorage.getItem("siteLanguage") || "en";
+    setLang(savedLang);
+});
+</script>
+<script src="https://unpkg.com/htmx.org@1.9.2"></script> <!-- This lets you use HTMX features without jQuery -->
+<script>
+function addToCart(productId) {
+    fetch(`/accounts/add-to-cart/${productId}/`)
+        .then(response => response.json())
+        .then(data => {
+            const cartSummary = document.getElementById("cart-summary");
+            if (cartSummary) {
+                if (data.total_items > 0) {
+                    cartSummary.innerHTML = `🛒 <strong>${data.total_items}</strong> items | Rs <strong>${data.total_price}</strong>`;
+                } else {
+                    cartSummary.innerHTML = "Cart is Empty";
+                }
+            }
+        })
+        .catch(err => console.error("Cart error:", err));
+}
+</script>
+<script>
+// ===== PLACE ORDER BUTTON (only runs if button exists on page) =====
+const orderBtn = document.getElementById("place-order-btn");
+if (orderBtn) {
+    orderBtn.addEventListener("click", function () {
+        fetch("{% url 'place_order' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("order-msg").innerText = data.message;
+                window.location.href = "{% url 'home' %}";
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(err => console.error("Order error:", err));
+    });
+}
+</script>
+<script>
+// ===== ORDER SUCCESS NOTIFICATION =====
+setTimeout(function () {
+    const notif = document.getElementById("order-notification");
+    if (notif) notif.remove();
+}, 5000);
+</script>
+// ===== STARRY BACKGROUND =====
+<script>
+(function() {
+    const canvas = document.getElementById("star-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        stars = Array.from({length: 160}, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height * 0.85,
+            r: Math.random() * 1.5 + 0.3,
+            speed: Math.random() * 0.02 + 0.005,
+            phase: Math.random() * Math.PI * 2,
+            color: Math.random() > 0.85 ? '#aad4ff' :
+                   Math.random() > 0.7  ? '#ffe8a0' : '#ffffff'
+        }));
+    }
+
+    function draw(t) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            const alpha = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = s.color;
+            ctx.globalAlpha = alpha;
+            ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

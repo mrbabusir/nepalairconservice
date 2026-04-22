@@ -27,8 +27,18 @@
     background-color: #1a1a1a9d;
     padding: 50px 20px;
 }
+.product p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;      /* show max 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 0 0 auto;
     width: 80%;
     position: relative;

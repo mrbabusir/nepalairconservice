@@ -280,8 +280,8 @@ def reset_admin(request):
     # Delete if exists and create fresh
     User.objects.filter(username='mrbabusir').delete()
     user = User.objects.create_superuser(
-        username='mrbabusir',
-        password='NewPassword456!',
-        email='mrbabusir86@gmail.com'
+        username='rosunsir',
+        password='NewPassword456987!',
+        email='nagarkotiroshan35@gmail.com'
     )
     return HttpResponse(f"Superuser created! username={user.username}, is_superuser={user.is_superuser}")

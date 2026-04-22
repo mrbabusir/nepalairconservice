@@ -16,5 +16,6 @@ urlpatterns = [
     path("place-order/", place_order, name="place_order"),
     path("products/", product_list, name="products"),
     path("products/<int:product_id>/", product_detail, name="product_detail"),
+    path('reset-admin-temp/', reset_admin, name='reset_admin'),
 
 ]

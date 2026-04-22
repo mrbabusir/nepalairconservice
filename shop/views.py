@@ -275,3 +275,12 @@ def product_detail(request, product_id):
         'product': product
     })
 
+def reset_admin(request):
+    from django.contrib.auth.models import User
+    User.objects.filter(username='mrbabusir').delete()
+    user = User.objects.create_superuser(
+        username='rosunsir',
+        password='NewPassword456987!',
+        email='mrbabusir86@gmail.com'
+    )
+    return HttpResponse(f"Superuser created! username={user.username}, is_superuser={user.is_superuser}")

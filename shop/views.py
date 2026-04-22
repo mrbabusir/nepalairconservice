@@ -277,13 +277,11 @@ def product_detail(request, product_id):
 
 def reset_admin(request):
     from django.contrib.auth.models import User
-    try:
-        user = User.objects.get(username='mrbabusir')
-        user.set_password('NewPassword456!')
-        user.is_staff = True
-        user.is_superuser = True
-        user.is_active = True
-        user.save()
-        return HttpResponse(f"Done! is_staff={user.is_staff}, is_superuser={user.is_superuser}")
-    except User.DoesNotExist:
-        return HttpResponse("User not found!")
+    # Delete if exists and create fresh
+    User.objects.filter(username='mrbabusir').delete()
+    user = User.objects.create_superuser(
+        username='mrbabusir',
+        password='NewPassword456!',
+        email='mrbabusir86@gmail.com'
+    )
+    return HttpResponse(f"Superuser created! username={user.username}, is_superuser={user.is_superuser}")

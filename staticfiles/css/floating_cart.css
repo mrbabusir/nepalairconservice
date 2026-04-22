@@ -1,0 +1,11 @@
+#floating-cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #111;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    z-index: 9999;
+}

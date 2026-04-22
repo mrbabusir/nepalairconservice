@@ -1,0 +1,162 @@
+
+.services-booking {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.services h1 {
+    font-family: 'Gill Sans';
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+    padding: 50px 20px;
+    text-align: center;  
+}
+
+
+.services .service-item h2 {
+    font-style: normal;
+    font-size: 45px;
+    font-family: slab-serif;
+    display: inline-block;
+    background: #efece3b7;
+    border: #2970aaad 1px solid;
+    color: #2a364e;
+    width: fit-content;
+    border-radius: 50px;
+    padding: 12px 24px;
+    margin: 20px 0px;
+}
+.services .service-item .service-box {
+    font-style: italic;
+    font-size: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 10px;
+    text-align: center;
+}
+.services .service-item.installation {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url("../images/acinstallation.png");
+    background-size: cover;
+    background-position: center;
+}
+.services .service-item.repair {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url("../images/acrepair.png");
+    background-size: cover;
+    background-position: center;
+}
+.services .service-item.gasrefill {
+    background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../images/acgasrefill.png");
+    background-size: cover;
+    background-position: center;
+}
+.services .service-item.accleaning {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../images/accleaning.png");
+    background-size: cover;
+    background-position: center;
+}
+.services .service-item {
+    position: relative;
+    font-size: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 20px;
+    flex: 1 1 calc(33.333% - 40px); /* 3 items per row with margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.booking-form {
+    max-width: 100%;
+    position: static;
+    top: 100px;
+    background-color: #2a364e;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.booking-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.booking-form input, .booking-form select, .booking-form textarea {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+.booking-form textarea {
+    min-height: 60px;
+    max-height: 80px;
+    resize: vertical; /* or none */
+}
+
+
+.booking-form button.bookbtn {
+    background: #6195e4;
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 12px;
+}
+.or-divider {
+    text-align: center;
+    margin: 15px 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 12px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.whatsapp-btn img {
+    width: 22px;
+}
+
+.booking-form h1 {
+    font-family: 'Gill Sans';
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+    text-align: center;    
+}
+@media (min-width: 769px) {
+    .services-booking {
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 80px;
+    }
+    .services {
+        max-width: 80%;
+    }
+    .booking-form {
+        margin-top: 80px;
+        max-width: auto;
+        position: sticky;
+        top: 100px;
+        align-self: flex-start;
+        background-color: #2a364e;
+        border-radius: 20px;
+        padding: 15px;
+    }
+
+
+}

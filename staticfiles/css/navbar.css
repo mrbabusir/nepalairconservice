@@ -1,0 +1,120 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    color: #4973ff;
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid #F0E491;
+    z-index: 1000;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--navy);
+}
+
+.logo img {
+    height: 28px;
+    width: auto;
+}
+
+.logo span {
+    font-size: clamp(14px, 3.5vw, 20px);
+    font-weight: bold;
+    color: var(--navy);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.nav-right a {
+    text-decoration: none;
+    color: var(--navy);
+    font-size: clamp(12px, 2.5vw, 15px);
+    white-space: nowrap;
+}
+
+.nav-right a:hover { color: #6cb2db; }
+.nav-right a:active { color: #ff9900; }
+
+.nav-btn {
+    background: var(--navy);
+    color: #4973ff !important;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: clamp(11px, 2.5vw, 14px) !important;
+    white-space: nowrap;
+}
+.nav-right span {
+    font-size: clamp(11px, 2.5vw, 14px);
+    color: var(--navy);
+}
+
+/* Language dropdown */
+.lang-dropdown { position: relative; }
+
+.lang-btn {
+    color: #6cb2db;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.lang-btn img { width: 18px; }
+
+.lang-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 110%;
+    color: #6cb2db;
+    background: white;
+    border: 1px solid var(--navy);
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    min-width: 130px;
+    z-index: 999;
+}
+
+.lang-menu.show { display: block; }
+
+.lang-menu button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--navy);
+}
+
+.lang-menu button:hover { background: #f3f4f6; }
+.lang-menu img { width: 16px; }
+
+/* Hide contact/shop/services links on very small screens */
+@media (max-width: 480px) {
+    .nav-right a:not(.nav-btn):not([onclick]) {
+        display: none;
+    }
+}

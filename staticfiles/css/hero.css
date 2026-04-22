@@ -1,0 +1,137 @@
+.hero-logo img {
+  width: 140px;
+  height: auto;
+}
+
+.hero {
+    position: relative;
+    z-index: 0;
+    background: #ffffff;  /* ← dark navy instead of #333333 */
+    color: white;
+    height: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 60px 20px 80px;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hero-text {
+  max-width: 650px;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin: 0;
+}
+.hero p {
+  font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  margin: 12px 20px 20px;
+}
+
+
+.hero p {
+  position: relative;
+  z-index: 1;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+}
+/*===starry night====*/
+#star-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 2;  /* ← make sure content stays above stars */
+}
+/* ========================= */
+
+.waves {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  width: 100%;
+  background-color: var(--color);
+  transition: 500ms;
+}
+
+.waves::before,
+.waves::after {
+  content: '';
+  position: absolute;
+  width: 300vw;
+  height: 300vw;
+  top: -65vw;
+  left: 50%;
+  transform: translate(-50%, -75%);
+}
+
+.waves::before {
+    border-radius: 44%;
+    background: rgba(10, 10, 26, 1);   /* ← was rgba(51,51,51,1) */
+    animation: waves 8s linear infinite;
+}
+
+.waves::after {
+    border-radius: 44%;
+    background: rgba(10, 10, 26, 0.5); /* ← was rgba(51,51,51,0.5) */
+    animation: waves 15s linear infinite;
+}
+@media (min-width: 768px) {
+  .hero {
+    height: 500px;
+  }
+  .hero-inner {
+    flex-direction: row;
+    align-items: center;
+    text-align: center ;
+    gap: 80px;
+  }
+
+  .hero-text {
+    flex: 2;
+    gap: 60px;
+    font-size: clamp(2rem, 4vw, 4.5rem);
+  }
+
+  .hero-logo {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .hero-logo img {
+    width: 250px;
+  }
+  .waves {
+    height: 250px;
+  }
+}
+
+@keyframes waves {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}

@@ -117,7 +117,7 @@
 
                         <h3>{{ product.name }}</h3>
                         <p>{{ product.description|truncatewords:20 }}</p>
-                        <p>Price: {{ product.price }}</p>
+                        <p class="price">Rs {{ product.price }}</p>
                         {% if user.is_authenticated %}
                             <button
                                 class="buy-btn"

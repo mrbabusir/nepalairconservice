@@ -1,0 +1,33 @@
+.alert {
+padding: 10px 20px;
+margin: 10px 0;
+border-radius: 5px;
+color: white;
+opacity: 1;
+transition: opacity 1s ease; /* smooth fade-out */
+}
+
+.alert.success {
+    color: #0f0;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.alert.error {
+    color: #f00;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+.hidden {
+opacity: 0;
+}
+.success-msg {
+    background: #25D366;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px auto;
+    width: fit-content;
+}
+

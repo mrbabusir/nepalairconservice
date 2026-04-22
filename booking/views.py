@@ -10,7 +10,9 @@ import os
 def home(request):
     try:
         products = Product.objects.filter(is_available=True)
-        order_msg = request.session.pop("order_success_message", None)
+        order_msg = request.session.get("order_success_message")
+        if order_msg:
+            del request.session["order_success_message"]
 
         if request.method == "POST":
             form = BookingForm(request.POST)

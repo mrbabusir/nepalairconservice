@@ -12,7 +12,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .forms import UserRegistrationForm
-from .models import Product, Order
+from .models import *
 from django.core.mail import send_mail
 
 # ===== AUTH VIEW (LOGIN + REGISTER) =====
@@ -252,12 +252,24 @@ View in admin panel:
 
         return redirect("home")
 
-def create_super(request):
-    if not User.objects.filter(username='mrbabusir').exists():
-        User.objects.create_superuser(
-            username='mrbabusir',
-            password='ChooseStrongPassword123!',
-            email='mrbabusir86@gmail.com'
-        )
-        return HttpResponse("Superuser created!")
-    return HttpResponse("Already exists!")
+
+def product_list(request):
+    category_id = request.GET.get('category')
+    categories = Category.objects.all()
+    
+    if category_id:
+        products = Product.objects.filter(is_available=True, category_id=category_id)
+    else:
+        products = Product.objects.filter(is_available=True)
+    
+    return render(request, 'products.html', {
+        'products': products,
+        'categories': categories,
+        'selected_category': int(category_id) if category_id else None
+    })
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id, is_available=True)
+    return render(request, 'product_detail.html', {
+        'product': product
+    })

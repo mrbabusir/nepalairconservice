@@ -88,11 +88,35 @@
     line-height: 1.5;
 }
 
-.product .price {
-    font-size: 16px;
-    font-weight: 700;
-    color: #6195e4;
+/* ===== PRICE SECTION ===== */
+.product-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
     margin-bottom: 15px;
+}
+
+.sale-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ff6b35;
+}
+
+.original-price {
+    font-size: 14px;
+    color: #90a4ae;
+    text-decoration: line-through;
+}
+
+.discount-badge {
+    background-color: #ff6b35;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
 /* ===== ADD TO CART BUTTON ===== */

@@ -117,7 +117,13 @@
 
                         <h3>{{ product.name }}</h3>
                         <p>{{ product.description|truncatewords:20 }}</p>
-                        <p class="price">Rs {{ product.price }}</p>
+                        <div class="product-price">
+                            <span class="sale-price">Rs. {{ product.price }}</span>
+                            {% if product.discount_percentage %}
+                                <span class="original-price">Rs. {{ product.original_price }}</span>
+                                <span class="discount-badge">-{{ product.discount_percentage }}%</span>
+                            {% endif %}
+                        </div>
                         {% if user.is_authenticated %}
                             <button
                                 class="buy-btn"

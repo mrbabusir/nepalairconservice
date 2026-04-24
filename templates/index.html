@@ -120,8 +120,8 @@
                         <div class="product-price">
                             <span class="sale-price">Rs. {{ product.price }}</span>
                             {% if product.discount_percentage %}
-                                <span class="original-price">Rs. {{ product.original_price }}</span>
                                 <span class="discount-badge">-{{ product.discount_percentage }}%</span>
+                                <span class="original-price">Rs. {{ product.original_price }}</span>
                             {% endif %}
                         </div>
                         {% if user.is_authenticated %}
